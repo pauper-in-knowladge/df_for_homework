@@ -1,0 +1,122 @@
+{% extends "template.html" %}
+{% load static %}
+
+{% block title %}
+    <title>login</title>
+{% endblock %}
+{% block css_js %}
+    <style>
+        .form-horizontal {
+            margin-top: 200px;
+
+        }
+
+        .hide {
+            display: none;
+        }
+
+        body {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form class="form-horizontal col-md-5 col-md-offset-3" action="{% url 'index' %}" method="post">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-3 control-label">邮箱:</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" autofocus>
+                    <span class="help-block hide">邮箱不能为空</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label">密码:</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    <span class="help-block hide">密码不能为空</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> 记住我
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-default btn-block btn-info" id="sign_in">登录</button>
+                    <button type="submit" class="btn btn-default btn-block btn-info" id="sign_in">取消</button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+
+    <script>
+    var $email = $("#inputEmail3");
+    var $passwd = $("#inputPassword3");
+    var $div_tiem = $(".col-sm-9");
+
+    //email输入框失去焦点,判断是否有值
+    $email.on("blur", function () {
+        email = $email.val();
+        if (email) {
+            //判断input内有内容
+            //正则判断内容是否符合格式
+            $email.next().addClass("hide");
+            $email.parent().removeClass("has-error");
+
+        } else {
+            //input内没有内容报错,且锁定内容输入
+            $email.next().removeClass("hide");
+            $email.parent().addClass("has-error");
+            $email.focus()
+
+        }
+    });
+
+    //passowrd输入框失去焦点,判断是否有值
+    $passwd.on("blur", function () {
+        passwd = $passwd.val();
+        if (passwd) {
+            //判断input内有内容
+            //正则判断内容是否符合格式
+            $passwd.next().addClass("hide");
+            $passwd.parent().removeClass("has-error");
+
+
+        } else {
+            //input内没有内容报错,且锁定内容输入
+            $passwd.next().removeClass("hide");
+            $passwd.parent().addClass("has-error");
+
+
+        }
+    });
+
+{% endblock %}
+//发现重复代码,企图用函数来优化,不会
+//    function test(fun){
+//        a = fun;
+//        if(a){
+//            this.next().addClass("hide");
+//            this.parent().removeClass("has-error");
+//        }else{
+//            this.next().removeClass("hide");
+//            this.parent().addClass("has-error");
+//        }
+//    }
